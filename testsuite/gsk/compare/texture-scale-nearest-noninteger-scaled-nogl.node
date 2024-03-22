@@ -1,0 +1,14 @@
+color {
+  color: black;
+  bounds: 0 0 3 2;
+}
+transform {
+  transform: scale(2);
+  child: texture-scale {
+    bounds: 0 0 1.5 1;
+    filter: nearest;
+    texture: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAAABCAIAAACZsDHhAAAAJklEQVQYlWOsY2T4j4kYGP4zMvxn\
+wiY1yBADw8C7AT/6B3EnDlkALoh9gcaqfz8AAAAASUVORK5CYII=\
+");
+  }
+}

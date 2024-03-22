@@ -1,0 +1,17 @@
+transform {
+  transform: scale(1.5);
+  child: container {
+    texture-scale {
+      bounds: 0 0 9.4 6;
+      filter: trilinear;
+      texture: "texture1" url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVQImWNoYGAAAAGEAIGs40g+\
+AAAAAElFTkSuQmCC\
+");
+    }
+    texture-scale {
+      bounds: 0 0 6 9.4;
+      filter: trilinear;
+      texture: "texture1";
+    }
+  }
+}
