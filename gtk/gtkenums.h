@@ -1852,4 +1852,33 @@ typedef enum { /*< prefix=GTK_POPOVER_MENU >*/
   GTK_POPOVER_MENU_NESTED = 1 << 0
 } GtkPopoverMenuFlags;
 
+/**
+ * GtkFontRendering:
+ * @GTK_FONT_RENDERING_MANUAL: Follow the low-level font-related settings
+ *   when configuring font rendering
+ * @GTK_FONT_RENDERING_AUTOMATIC: Set up font rendering automatically
+ * @GTK_FONT_RENDERING_PREFER_SHARPNESS: Prefer sharpness over precise
+ *   positioning for font rendering
+ * @GTK_FONT_RENDERING_PREFER_POSITIONING: Prefer precise positioning
+ *   over sharpness for font rendering
+ *
+ * Values for the [property@Gtk.Settings:gtk-font-rendering] property
+ * that influence how GTK renders fonts.
+ *
+ * The @GTK_FONT_RENDERING_MANUAL value instructs GTK to apply the low-level
+ * font-related settings:
+ * [property@Gtk.Settings:gtk-hint-font-metrics],
+ * [property@Gtk.Settings:gtk-xft-antialias],
+ * [property@Gtk.Settings:gtk-xft-hinting] and
+ * [property@Gtk.Settings:gtk-xft-hintstyle]].
+ *
+ * Since: 4.16
+ */
+typedef enum {
+  GTK_FONT_RENDERING_MANUAL,
+  GTK_FONT_RENDERING_AUTOMATIC,
+  GTK_FONT_RENDERING_PREFER_SHARPNESS,
+  GTK_FONT_RENDERING_PREFER_POSITIONING,
+} GtkFontRendering;
+
 G_END_DECLS
