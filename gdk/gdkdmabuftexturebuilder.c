@@ -43,6 +43,8 @@ struct _GdkDmabufTextureBuilder
 
   GdkTexture *update_texture;
   cairo_region_t *update_region;
+
+  GdkContentTransform transform;
 };
 
 struct _GdkDmabufTextureBuilderClass
@@ -1020,4 +1022,17 @@ gdk_dmabuf_texture_builder_set_dmabuf (GdkDmabufTextureBuilder *self,
       gdk_dmabuf_texture_builder_set_stride (self, i, dmabuf->planes[i].stride);
       gdk_dmabuf_texture_builder_set_offset (self, i, dmabuf->planes[i].offset);
     }
+}
+
+void
+gdk_dmabuf_texture_builder_set_transform (GdkDmabufTextureBuilder *self,
+                                          GdkContentTransform      transform)
+{
+  self->transform = transform;
+}
+
+GdkContentTransform
+gdk_dmabuf_texture_builder_get_transform (GdkDmabufTextureBuilder *self)
+{
+  return self->transform;
 }

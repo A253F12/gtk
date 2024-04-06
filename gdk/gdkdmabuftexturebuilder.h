@@ -112,6 +112,12 @@ GDK_AVAILABLE_IN_4_14
 void                     gdk_dmabuf_texture_builder_set_update_region (GdkDmabufTextureBuilder   *self,
                                                                        cairo_region_t            *region);
 
+GDK_AVAILABLE_IN_4_16
+void                     gdk_dmabuf_texture_builder_set_transform    (GdkDmabufTextureBuilder    *self,
+                                                                      GdkContentTransform         tranform);
+GDK_AVAILABLE_IN_4_16
+GdkContentTransform      gdk_dmabuf_texture_builder_get_transform    (GdkDmabufTextureBuilder    *self);
+
 GDK_AVAILABLE_IN_4_14
 GdkTexture *             gdk_dmabuf_texture_builder_build            (GdkDmabufTextureBuilder    *self,
                                                                       GDestroyNotify              destroy,

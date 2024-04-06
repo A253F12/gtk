@@ -55,6 +55,8 @@ struct _GdkDmabufTexture
 
   GDestroyNotify destroy;
   gpointer data;
+
+  GdkContentTransform transform;
 };
 
 struct _GdkDmabufTextureClass
@@ -197,6 +199,7 @@ gdk_dmabuf_texture_new_from_builder (GdkDmabufTextureBuilder *builder,
 
   g_set_object (&self->display, display);
   self->dmabuf = dmabuf;
+  self->transform = gdk_dmabuf_texture_builder_get_transform (builder);
 
   if (!gdk_dmabuf_get_memory_format (dmabuf.fourcc, premultiplied, &(GDK_TEXTURE (self)->format)))
     {
@@ -269,3 +272,8 @@ gdk_dmabuf_texture_new_from_builder (GdkDmabufTextureBuilder *builder,
 #endif
 }
 
+GdkContentTransform
+gdk_dmabuf_texture_get_transform (GdkDmabufTexture *self)
+{
+  return self->transform;
+}
