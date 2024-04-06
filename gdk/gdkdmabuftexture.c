@@ -77,6 +77,9 @@ gdk_dmabuf_texture_dispose (GObject *object)
   g_clear_object (&self->downloader);
   g_clear_object (&self->display);
 
+  for (unsigned int i = 0; i < self->dmabuf.n_planes; i++)
+    close (self->dmabuf.planes[i].fd);
+
   G_OBJECT_CLASS (gdk_dmabuf_texture_parent_class)->dispose (object);
 }
 
