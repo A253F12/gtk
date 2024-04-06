@@ -799,6 +799,7 @@ gtk_gl_area_snapshot (GtkWidget   *widget,
           gdk_dmabuf_texture_builder_set_height (builder, gdk_texture_get_height (gltexture));
           gdk_dmabuf_texture_builder_set_premultiplied (builder, TRUE);
           gdk_dmabuf_texture_builder_set_dmabuf (builder, &dmabuf);
+          gdk_dmabuf_texture_builder_set_transform (builder, GDK_CONTENT_TRANSFORM_FLIPPED_180);
 
           texture->holder = gdk_dmabuf_texture_builder_build (builder, g_object_unref, gltexture, NULL);
 
