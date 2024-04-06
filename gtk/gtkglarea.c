@@ -34,6 +34,7 @@
 #include "gtkcssnodeprivate.h"
 #include "gdk/gdkgltextureprivate.h"
 #include "gdk/gdkglcontextprivate.h"
+#include "gdk/gdkdmabuftexturebuilderprivate.h"
 
 #include <epoxy/gl.h>
 
@@ -758,6 +759,8 @@ gtk_gl_area_snapshot (GtkWidget   *widget,
     {
       Texture *texture;
       gpointer sync = NULL;
+      GdkTexture *gltexture;
+      GdkDmabuf dmabuf;
 
       if (priv->needs_render || priv->auto_render)
         {
@@ -781,9 +784,29 @@ gtk_gl_area_snapshot (GtkWidget   *widget,
 
       gdk_gl_texture_builder_set_sync (texture->builder, sync);
 
-      texture->holder = gdk_gl_texture_builder_build (texture->builder,
-                                                      release_texture,
-                                                      texture);
+      gltexture = gdk_gl_texture_builder_build (texture->builder,
+                                                release_texture,
+                                                texture);
+
+      if (gdk_gl_context_export_dmabuf (priv->context,
+                                        gdk_gl_texture_builder_get_id (texture->builder),
+                                        &dmabuf))
+        {
+          GdkDmabufTextureBuilder *builder = gdk_dmabuf_texture_builder_new ();
+
+          gdk_dmabuf_texture_builder_set_display (builder, gdk_gl_context_get_display (priv->context));
+          gdk_dmabuf_texture_builder_set_width (builder, gdk_texture_get_width (gltexture));
+          gdk_dmabuf_texture_builder_set_height (builder, gdk_texture_get_height (gltexture));
+          gdk_dmabuf_texture_builder_set_premultiplied (builder, TRUE);
+          gdk_dmabuf_texture_builder_set_dmabuf (builder, &dmabuf);
+
+          texture->holder = gdk_dmabuf_texture_builder_build (builder, g_object_unref, gltexture, NULL);
+
+          g_object_unref (builder);
+        }
+
+      if (texture->holder == NULL)
+        texture->holder = gltexture;
 
       /* Our texture is rendered by OpenGL, so it is upside down,
        * compared to what GSK expects, so flip it back.
