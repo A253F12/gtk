@@ -302,6 +302,7 @@ gdk_wayland_subsurface_attach (GdkSubsurface         *sub,
 
   if (result)
     {
+      wl_surface_set_buffer_transform (self->surface, gdk_dmabuf_texture_get_transform (GDK_DMABUF_TEXTURE (texture)));
       wl_subsurface_set_position (self->subsurface, self->dest.x, self->dest.y);
       wp_viewport_set_destination (self->viewport, self->dest.width, self->dest.height);
       wp_viewport_set_source (self->viewport,
